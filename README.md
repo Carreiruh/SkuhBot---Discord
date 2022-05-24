@@ -1,4 +1,4 @@
-# SkuhBot---Discord
+# SkuhBot
 Multi-Purpose Discord bot built using Python (Currently WIP)
 
 This bot is made to serve as a learning tool and is completely free for public use
