@@ -6,18 +6,19 @@ from discord.ext import commands
 # Enter your bots custom token here
 token = "Enter Your Token Here"
 
-client = commands.Bot(command_prefix='!')
+# Enable intents and define in developer portal to enable auto-role functionality
+intents = discord.Intents.default()
+intents.members = True
+
+client = commands.Bot(command_prefix='!', intents=intents)
+
 
 # Check if bot is running and print username of bot in terminal
-
-
 @client.event
 async def on_ready():
     print(f"Bot logged in as {client.user}")
 
 # 8Ball Function - ask a question and get a randomized response
-
-
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, *, question):
     responses = ['It is certain.', 'It is decidedly so.', 'Without a doubt.', 'Yes definitely.', 'You may rely on it.', 'As I see it, yes.',
@@ -25,8 +26,6 @@ async def _8ball(ctx, *, question):
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
 # Have bot say hello to user
-
-
 @client.event
 async def on_message(msg):
     if msg.author != client.user:
@@ -34,12 +33,17 @@ async def on_message(msg):
             await msg.channel.send(f"Hello, {msg.author.display_name}! You are looking very powerful and attractive today.")
     await client.process_commands(msg)
 
+#Auto assigns guest role to users when invited to server
+role = "Guest"
+@client.event
+async def on_member_join(member): 
+    rank = discord.utils.get(member.guild.roles, name=role) #Bot get guild(server) roles
+    await member.add_roles(rank)  
+
 # Help Function - Provides users command inventory for the bot in channel
-
-
 @client.command()
 async def helpme(ctx):
-    embed = discord.Embed(title="----- Help Menu -----", description='\n Current commands are:\n\n !8ball (Enter your question here without parenthesis) - Provides concrete reliable decision making guarenteed to work 100% of the time 20% of the time!\n\n !hi - Provides a nice hello message from the bot\n\n !poll (Poll topic here without parenthesis) - Call a vote in the current channel using emotes \n\n !coinflip - Flips a coin and spits out the randomized result\n\n !usernamegen - Generates a custom unique username if the one you actually wanted got taken again\n\n'
+    embed = discord.Embed(title="----- Help Menu -----", description='\n Current commands are:\n\n !8ball (Enter your question here without parenthesis) - Provides concrete reliable decision making guarenteed to work 100% of the time 20% of the time!\n\n !hi - Provides a nice hello message from the bot\n\n !poll (Poll topic here without parenthesis) - Call a vote in the current channel using emotes \n\n !coinflip - Flips a coin and spits out the randomized result\n\n !usernamegen - Generates a custom unique username if the one you actually wanted got taken'
                           )
     await ctx.send(embed=embed)
 
@@ -53,8 +57,6 @@ async def poll(ctx, *, text: str):
     await poll.add_reaction("❓")
 
 # Coin Flip - Random coin flip functionality
-
-
 @client.command()
 async def coinflip(ctx):
     cointoss_options = [0, 1]
@@ -69,7 +71,7 @@ async def coinflip(ctx):
         await ctx.send(embed=embed)
 
 
-# Is the username you wanted taken? Try using this for a super cool unique name
+#  Generates random username for users 
 @client.command()
 async def usernamegen(ctx):
     adjectives = ['aback', 'abaft',  'abandoned',  'abashed',  'aberrant',  'abhorrent',
