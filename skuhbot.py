@@ -37,7 +37,7 @@ async def on_message(msg):
 role = "Guest"
 @client.event
 async def on_member_join(member): 
-    rank = discord.utils.get(member.guild.roles, name=role) #Bot get guild(server) roles
+    rank = discord.utils.get(member.guild.roles, name=role)
     await member.add_roles(rank)  
 
 # Help Function - Provides users command inventory for the bot in channel
