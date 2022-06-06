@@ -16,6 +16,19 @@ client = commands.Bot(command_prefix='!', intents=intents)
 # Check if bot is running and print username of bot in terminal
 @client.event
 async def on_ready():
+    introart = """
+
+ $$$$$$\  $$\                 $$\       $$$$$$$\             $$\     
+$$  __$$\ $$ |                $$ |      $$  __$$\            $$ |    
+$$ /  \__|$$ |  $$\ $$\   $$\ $$$$$$$\  $$ |  $$ | $$$$$$\ $$$$$$\   
+\$$$$$$\  $$ | $$  |$$ |  $$ |$$  __$$\ $$$$$$$\ |$$  __$$\\_$$  _|  
+ \____$$\ $$$$$$  / $$ |  $$ |$$ |  $$ |$$  __$$\ $$ /  $$ | $$ |    
+$$\   $$ |$$  _$$<  $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ | $$ |$$\ 
+\$$$$$$  |$$ | \$$\ \$$$$$$  |$$ |  $$ |$$$$$$$  |\$$$$$$  | \$$$$  |
+ \______/ \__|  \__| \______/ \__|  \__|\_______/  \______/   \____/ 
+                                                                     
+"""
+    print(introart)                                
     print(f"Bot logged in as {client.user}")
 
 # 8Ball Function - ask a question and get a randomized response
